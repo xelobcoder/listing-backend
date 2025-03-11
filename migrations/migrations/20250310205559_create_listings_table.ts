@@ -3,7 +3,7 @@ import type { Knex } from 'knex';
 export async function up(knex: Knex): Promise<void> {
     await knex.schema.dropTableIfExists('listings');
     return knex.schema.createTable('listings', (table) => {
-        table.uuid('id').primary().defaultTo(knex.raw('gen_random_uuid()'));
+        table.uuid('id').primary().defaultTo(knex.raw('gen_random_uuid()')).unique();
         table.string('title').notNullable();
         table.text('description');
         table.decimal('price', 10, 2).notNullable();
